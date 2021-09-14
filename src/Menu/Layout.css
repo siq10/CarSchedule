@@ -1,0 +1,78 @@
+.Layout
+{
+    height:100%;
+    position:fixed;
+    z-index:top;
+    top:0;
+    left:0;
+    width:200px;
+    background-color: rgb(76, 121, 163);
+    padding-top:20px;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+.Layout header img
+{
+    border-radius: 50%;
+    display: inline-block;
+}
+.Layout header .item
+{
+    display:inline-block;
+}
+.Layout header h3
+{
+    font-size:20px;
+    transition: 0.3s;
+    display:table-caption;
+    margin:0;
+    margin-left:10px;
+}
+.namecontainer
+{
+    display:inline-block;
+    position:absolute;
+    top:50;    
+}
+
+.Layout .item
+{
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #2b0303;
+    display: block;
+    transition: 0.3s;
+}
+
+.profile
+{
+   position:relative;
+
+}
+
+.Layout a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #2b0303;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  header hr
+  {
+      width: 80%;
+  }
+
+  .Layout-minimized
+  {
+      width: 50px;
+  }
+
+  .Layout .menu a
+  {
+        display: block;
+        width: 30%;
+  
+  }

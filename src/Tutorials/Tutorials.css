@@ -1,0 +1,16 @@
+.chapterscontainer
+{
+    display: block;
+    width:80%;
+}
+
+.chapterscontainer ul li
+ {
+    cursor: pointer;
+ }
+
+ .searchContainer
+ {
+     display: block;
+     width:80%;
+ }
