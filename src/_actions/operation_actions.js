@@ -11,7 +11,7 @@ function getClientCurrentOperations(token,id) {
     return dispatch => {
         dispatch(request())
         return new Promise((resolve, reject) => {
-            operationService.getFutureOps(token,id)
+            operationService.getCurrentOps(token,id)
             .then(
                 operations => {
                     dispatch(success(operations))
@@ -26,7 +26,7 @@ function getClientCurrentOperations(token,id) {
         });
     }
 
-    function request() { return { type: operationConstants.GET_FUTURE_OPS_REQUEST } }
-    function success(operations) { return { type: operationConstants.GET_FUTURE_OPS_SUCCESS, operations } }
-    function failure(error) { return { type: operationConstants.GET_FUTURE_OPS_ERROR, error } }
+    function request() { return { type: operationConstants.GET_CURRENT_OPS_REQUEST } }
+    function success(operations) { return { type: operationConstants.GET_CURRENT_OPS_SUCCESS, operations } }
+    function failure(error) { return { type: operationConstants.GET_CURRENT_OPS_ERROR, error } }
 }

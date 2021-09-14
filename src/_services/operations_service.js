@@ -1,13 +1,13 @@
 import { Config } from '../Utils/config'
 
 export const operationService = {
-    getFutureOps,
-    getPastOps,
+    getHistoryOps,
+    getCurrentOps,
     cancelOp,
     updateOp
 }
 
-function getFutureOps(token,id) {
+function getCurrentOps(token,id) {
     const requestOptions = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ function getFutureOps(token,id) {
         })
 }
 
-function getPastOps(token) {
+function getHistoryOps(token) {
 
 }
 
