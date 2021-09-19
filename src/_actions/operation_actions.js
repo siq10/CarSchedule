@@ -3,8 +3,9 @@ import { operationService } from '../_services/operations_service';
 import { alertActions } from './alert_actions';
 
 export const operationActions = {
-    getClientCurrentOperations
-
+    getClientCurrentOperations,
+    getProcedureTypesFromData,
+    getGroupedProceduresBasedOnType,
 };
 
 function getClientCurrentOperations(token,id) {
@@ -29,4 +30,24 @@ function getClientCurrentOperations(token,id) {
     function request() { return { type: operationConstants.GET_CURRENT_OPS_REQUEST } }
     function success(operations) { return { type: operationConstants.GET_CURRENT_OPS_SUCCESS, operations } }
     function failure(error) { return { type: operationConstants.GET_CURRENT_OPS_ERROR, error } }
+}
+
+function getProcedureTypesFromData(operationData)
+{
+    const optypes = new Set()
+    operationData.forEach(op => optypes.add(op.procedure.type))
+    return [...optypes]
+}
+
+function getGroupedProceduresBasedOnType(optypes, operationdata)
+{
+    const result = {}
+    optypes.forEach( type => {
+        result[type] = []
+    })
+    operationdata.forEach(op => {
+        result[op.procedure.type].push(op)
+    })
+    console.log(result)
+    return result
 }

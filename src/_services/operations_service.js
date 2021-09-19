@@ -22,7 +22,7 @@ function getCurrentOps(token,id) {
 }
 
 function getHistoryOps(token) {
-
+    
 }
 
 
@@ -37,7 +37,6 @@ function updateOp(token) {
 function handleResponse(response)
 {
     return response.text().then(text => {
-        console.log(text)
         const data = text && JSON.parse(text)
         if(!response.ok)
         {
