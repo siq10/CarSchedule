@@ -5,30 +5,36 @@ import { MdSchool } from "react-icons/md";
 import { MdImportContacts } from "react-icons/md";
 import { MdHistory } from "react-icons/md";
 
+import HomeIcon from '@material-ui/icons/Home';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import SchoolIcon from '@material-ui/icons/School';
+import RoomIcon from '@material-ui/icons/Room';
+import HistoryIcon from '@material-ui/icons/History';
+
 export const MenuData = [
     {
         title: 'Home',
         path: '/',
-        icon: <MdHome/>
+        icon: <HomeIcon className="navitems"></HomeIcon>
     },
     {
         title: 'Schedule',
         path: '/schedule',
-        icon: <MdEventNote/>
+        icon: <EventNoteIcon className="navitems"></EventNoteIcon>
     },
     {
         title: 'History',
         path: '/history',
-        icon: <MdHistory/>
+        icon: <SchoolIcon className="navitems"></SchoolIcon>
     },
     {
         title: 'Tutorials',
         path: '/tutorials',
-        icon: <MdSchool/>
+        icon: <RoomIcon className="navitems"></RoomIcon>
     },
     {
         title: 'Contact',
         path: '/contact',
-        icon: <MdImportContacts/>
+        icon: <HistoryIcon className="navitems"></HistoryIcon>
     },
 ]

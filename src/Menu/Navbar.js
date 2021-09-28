@@ -3,28 +3,27 @@ import { MdMenu } from "react-icons/md";
 import { MenuData } from './MenuData'
 import { Link } from "react-router-dom";
 import './Navbar.css'
-
-function Navbar(props) {
-    if(props.activation)
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+function Navbar() {
     return (
-        <>
-            <nav className="Layout-nav">
-                <ul className='nav-menu-list'>
-                    {MenuData.map((item,index) => {
-                        return (
-                            <li key={index} className={item.cName}>
-                                <Link to={item.path} onClick={() => {props.removeBar()}}>
-                                    {item.icon}
-                                    <span>{item.title}</span>
-                                </Link>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </nav>
-        </>
+        <nav>
+            <List>
+                {MenuData.map((item,index) => {
+                    return (
+                        <ListItem button component={Link} to={item.path} key={index}>
+                        <ListItemIcon>
+                            {item.icon}
+                        </ListItemIcon>
+                        <ListItemText primary={item.title} />
+                      </ListItem>
+                    )
+                })}
+            </List>
+               
+        </nav>
     )
-    else
-    return null
 }
 export default Navbar;
