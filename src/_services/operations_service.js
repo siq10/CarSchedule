@@ -13,7 +13,7 @@ function getCurrentOps(token,id) {
         headers: { 'Content-Type': 'application/json',
                    'Authorization': 'Bearer ' + token }
     }
-    return fetch(`${Config.apiUrl}:${Config.apiPort}/procedures/${id}`, requestOptions)
+    return fetch(`${Config.apiUrl}:${Config.apiPort}/users/${id}/procedures`, requestOptions)
         .then(handleResponse)
         .then(payload => {
             console.log(payload)
