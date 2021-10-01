@@ -1,0 +1,7 @@
+.opstatus
+{
+    position:absolute;
+    transform:scale(0.7);
+    left:40px;
+    bottom:12px;
+}

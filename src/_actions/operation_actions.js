@@ -1,4 +1,4 @@
-import { operationConstants } from '../_constants/operation_constants';
+import { operationConstants, monthnames } from '../_constants/operation_constants';
 import { operationService } from '../_services/operations_service';
 import { alertActions } from './alert_actions';
 
@@ -15,6 +15,10 @@ function getClientCurrentOperations(token,id) {
             operationService.getCurrentOps(token,id)
             .then(
                 operations => {
+                    operations.forEach(op => {
+                        const date = new Date(op.start_date)
+                        op.start_date = `${monthnames[date.getMonth()]}  ${date.getDay()}, ${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`
+                    })
                     dispatch(success(operations))
                     return resolve(operations)
                 },

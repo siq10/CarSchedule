@@ -16,6 +16,8 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 import logo from './logo.svg';
 import './App.css';
@@ -39,16 +41,26 @@ import {
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [drawerState, setDrawerState] = useState(false);
+  const [barTitle, setBarTitle] = useState("")
   const alert = useSelector(state => state.alert);
   const auth = useSelector(state => state.auth);
+  const [lastErr, setLastErr] = useState("");
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     history.listen((location, action) => {
         // clear alert on location change
         dispatch(alertActions.clear());
-        
     });
   }, []);
+  // for correct toast aninmation
+  useEffect(() => {
+    if(alert.message)
+    {
+      setLastErr(alert.message)
+    }
+  }, [alert]);
   
   return (
     <Container fixed className="App"
@@ -69,7 +81,7 @@ function App() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="h1" sx={{ flexGrow: 1 }}>
-            {window.location.pathname}
+            { barTitle ? barTitle: (window.location.pathname == '/' ? "Home" : window.location.pathname) }
           </Typography>
           {!auth.loggedIn ?
           <nav className="authcontainer">
@@ -83,8 +95,13 @@ function App() {
           }
         </Toolbar>  
       </AppBar>
-      {alert.message &&
-      <div className={`alert ${alert.type}`}>{alert.message}</div>
+      {
+      <Snackbar autoHideDuration={2500} anchorOrigin={{ vertical:"bottom", horizontal:"center" }}
+      open={alert.show} onClose={() => {dispatch(alertActions.clear())}}>
+        <Alert severity="error" sx={{ width: '100%' }}>
+          {lastErr}
+        </Alert>
+      </Snackbar> 
       }
       <Switch>
             <Route path='/' exact component={Home} />
@@ -100,7 +117,7 @@ function App() {
             <Route path='/register' component={Register}/>
       </Switch>
       
-      <Layout drawerState={drawerState} changeDrawerState={setDrawerState}></Layout>
+      <Layout setTitle={setBarTitle} drawerState={drawerState} changeDrawerState={setDrawerState}></Layout>
       
       </Router>
     </Container>

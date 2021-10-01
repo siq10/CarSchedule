@@ -8,3 +8,6 @@ export const operationConstants = {
     GET_PAST_OPS_ERROR: 'GET_CLIENT_PAST_OPERATIONS_ERROR',
     GET_PAST_OPS_CLEAR: 'GET_CLIENT_PAST_OPERATIONS_CLEAR',
 }
+
+export const monthnames = ["January", "February", "March", "April", "May", "June", 
+"July", "August", "September", "October", "November", "December" ]

@@ -73,7 +73,7 @@ function Layout(props) {
               </div>
             </div> */}
             <Divider />
-            <Navbar></Navbar>
+            <Navbar setTitle={props.setTitle}></Navbar>
           </Box>
         </Drawer>
      

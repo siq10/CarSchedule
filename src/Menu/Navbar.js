@@ -7,13 +7,13 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-function Navbar() {
+function Navbar(props) {
     return (
         <nav>
             <List>
                 {MenuData.map((item,index) => {
                     return (
-                        <ListItem button component={Link} to={item.path} key={index}>
+                        <ListItem button component={Link} to={item.path} key={index} onClick={() => props.setTitle(item.title)}>
                         <ListItemIcon>
                             {item.icon}
                         </ListItemIcon>
