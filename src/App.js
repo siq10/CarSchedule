@@ -8,6 +8,9 @@ import { Login } from './Auth/Login';
 import { Register } from './Auth/Register';
 import { userActions } from './_actions/user_actions';
 
+import { MenuData } from './Menu/MenuData'
+import { routeTitles } from './_constants/route_constants'
+
 import { Container } from '@mui/material';
 
 import AppBar from "@mui/material/AppBar";
@@ -49,10 +52,22 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    history.listen((location, action) => {
+    const unsubCallback = history.listen((location, action) => {
         // clear alert on location change
         dispatch(alertActions.clear());
+        console.log(location)
+        let pathstrings = location.pathname.split('/')
+        if(action === "POP" && routeTitles.hasOwnProperty(pathstrings[1]))
+        {
+          if(pathstrings[1] == "" && pathstrings.length != 2)
+          {
+           setBarTitle(location.pathname)
+          }
+          else
+          setBarTitle(MenuData[routeTitles[pathstrings[1]]].title)
+        }
     });
+    return unsubCallback
   }, []);
   // for correct toast aninmation
   useEffect(() => {
@@ -105,10 +120,9 @@ function App() {
       }
       <Switch>
             <Route path='/' exact component={Home} />
-            <PrivateRoute path='/schedule' component={Schedule} />
+            <PrivateRoute path='/schedule/:procId?' component={Schedule} />
             <Route exact path='/tutorials' component={Tutorials} />
             <Route path='/tutorials/*' component={TutorialPresentation} />
-            <Route path='/procedures/*' component={Procedure} />
 
 
             <Route path='/register' component={Register}/>

@@ -1,6 +1,8 @@
 import testUtils from 'react-dom/test-utils';
 import { authHeader } from '../_helpers/auth_header';
 import { Config } from '../Utils/config'
+import { useSelector } from 'react-redux'
+
 export const userService = {
     login,
     logout,
@@ -12,9 +14,12 @@ export const userService = {
     // delete: _delete
 
 };
-
+let user = {}
 function getcurrentuser()
 {
+    if(user.token)
+    return user
+    else
     return JSON.parse(localStorage.getItem('user'));
 }
 
@@ -30,6 +35,7 @@ function login(username, password) {
             console.log(payload)
             const userdata = {id:payload.user.id, username:payload.user.username, email:payload.user.email, token:payload.token}
             // store user details and jwt token in local storage to keep user logged in between page refreshes
+            user = {id:userdata.id, username: userdata.username, token: userdata.token}
             localStorage.setItem('user', JSON.stringify(userdata));
             return userdata;
         });

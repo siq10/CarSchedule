@@ -4,7 +4,8 @@ export const operationService = {
     getHistoryOps,
     getCurrentOps,
     cancelOp,
-    updateOp
+    updateOp,
+    getOperationForUser
 }
 
 function getCurrentOps(token,id) {
@@ -32,6 +33,20 @@ function cancelOp(token) {
 
 function updateOp(token) {
     
+}
+
+function getOperationForUser(token,userId,opId) {
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json',
+                   'Authorization': 'Bearer ' + token }
+    }
+    return fetch(`${Config.apiUrl}:${Config.apiPort}/users/${userId}/procedures/${opId}`, requestOptions)
+        .then(handleResponse)
+        .then(payload => {
+            console.log(payload)
+            return payload
+        })
 }
 
 function handleResponse(response)

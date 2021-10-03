@@ -40,9 +40,6 @@ function Layout(props) {
     }
     props.changeDrawerState(open)
   };
-  // useEffect(() => {
-  //   console.log(active + " from Layout")
-  // }, [active]);
   return (
     <div>
        <Drawer
