@@ -4,13 +4,19 @@ export function alertReducer(state = {show:false}, action) {
     switch (action.type) {
         case alertConstants.SUCCESS:
             return {
-                type: 'alert-success',
+                type: 'success',
                 message: action.message,
                 show: action.show
             };
         case alertConstants.ERROR:
             return {
-                type: 'alert-danger',
+                type: 'error',
+                message: action.message,
+                show: action.show
+            };
+        case alertConstants.WARNING:
+            return {
+                type: 'warning',
                 message: action.message,
                 show: action.show
             };

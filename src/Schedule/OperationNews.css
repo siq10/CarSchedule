@@ -1,0 +1,14 @@
+.notifMsg
+{
+    font-size: 12px;
+    font-weight: 600;
+    padding:0;
+    margin:0;
+}
+.notifInfo
+{
+    font-size: 12px;
+    opacity:0.5;
+    padding:0;
+    margin:0;
+}

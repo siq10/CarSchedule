@@ -1,9 +1,8 @@
 import React from "react";
 import { Form, Field } from 'react-final-form'
-import { useHistory } from "react-router-dom";
-function Register() {
-    let history = useHistory();
+import { history } from '../_helpers/history';
 
+function Register() {
     const onSubmit = registerdata => {
         console.log(registerdata)
         const requestOptions = {

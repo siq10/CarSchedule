@@ -39,7 +39,10 @@ import {
   Link,
   useLocation
 } from "react-router-dom";
+import { alertReducer } from './_reducers/alert_reducer';
 
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -47,17 +50,20 @@ function App() {
   const [barTitle, setBarTitle] = useState("")
   const alert = useSelector(state => state.alert);
   const auth = useSelector(state => state.auth);
-  const [lastErr, setLastErr] = useState("");
+  const [lastToast, setLastToast] = useState({});
+  const [currentPath, setCurrentPath] = useState("/");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const unsubCallback = history.listen((location, action) => {
         // clear alert on location change
-        dispatch(alertActions.clear());
-        console.log(location)
+        // dispatch(alertActions.clear());
+        // console.log(location)
+        // console.log(action)
+        setCurrentPath(location.pathname)
         let pathstrings = location.pathname.split('/')
-        if(action === "POP" && routeTitles.hasOwnProperty(pathstrings[1]))
+        if((action === "POP" || action === 'REPLACE') && routeTitles.hasOwnProperty(pathstrings[1]))
         {
           if(pathstrings[1] == "" && pathstrings.length != 2)
           {
@@ -73,15 +79,17 @@ function App() {
   useEffect(() => {
     if(alert.message)
     {
-      setLastErr(alert.message)
+      setLastToast({type:alert.type, message:alert.message})
     }
   }, [alert]);
-  
+
   return (
     <Container fixed className="App"
       sx={{
         bgcolor: 'background.default'
       }}>
+     <LocalizationProvider dateAdapter={AdapterDateFns}>
+
       <Router history={history}>
       <AppBar position="static">
         <Toolbar>
@@ -96,16 +104,16 @@ function App() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="h1" sx={{ flexGrow: 1 }}>
-            { barTitle ? barTitle: (window.location.pathname == '/' ? "Home" : window.location.pathname) }
+            { barTitle ? barTitle: (history.location.pathname == '/' ? "Home" : history.location.pathname) }
           </Typography>
           {!auth.loggedIn ?
           <nav className="authcontainer">
-            <AuthBtn name="Sign in" link="/login" previous={window.location.pathname=="/login"?"/home":window.location.pathname} ></AuthBtn>
+            <AuthBtn name="Sign in" link="/login" previous={(currentPath=="/login" || currentPath=="/register")?"/":currentPath} ></AuthBtn>
             <AuthBtn name="Register" link="/register" previous="/login"></AuthBtn>
           </nav>
           :
           <nav className="authcontainer">
-            <AuthBtn name="Logout" link={window.location.pathname} previous={window.location.pathname} onClick={() => dispatch(userActions.logout())}></AuthBtn>
+            <AuthBtn name="Logout" link={(currentPath=="/login" || currentPath=="/register")?"/":currentPath} previous={currentPath=="/login"?"/":currentPath} onClick={() => dispatch(userActions.logout())}></AuthBtn>
           </nav>
           }
         </Toolbar>  
@@ -113,8 +121,8 @@ function App() {
       {
       <Snackbar autoHideDuration={2500} anchorOrigin={{ vertical:"bottom", horizontal:"center" }}
       open={alert.show} onClose={() => {dispatch(alertActions.clear())}}>
-        <Alert severity="error" sx={{ width: '100%' }}>
-          {lastErr}
+        <Alert severity={lastToast.type} sx={{ width: '100%' }}>
+          {lastToast.message}
         </Alert>
       </Snackbar> 
       }
@@ -134,6 +142,7 @@ function App() {
       <Layout setTitle={setBarTitle} drawerState={drawerState} changeDrawerState={setDrawerState}></Layout>
       
       </Router>
+      </LocalizationProvider>
     </Container>
   );
 }

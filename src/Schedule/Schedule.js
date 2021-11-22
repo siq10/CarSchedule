@@ -27,6 +27,7 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Typography from '@mui/material/Typography';
 import Procedure from './Procedure';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 function Schedule(props) {
     const dispatch = useDispatch()
@@ -61,7 +62,7 @@ function Schedule(props) {
     }
     useEffect(() => {
         var userdata = {}
-        if(auth)
+        if(auth.user)
         {
             userdata = auth.user
         }
@@ -69,6 +70,7 @@ function Schedule(props) {
         {
             userdata = user_ls
         }
+        console.log(userdata)
         dispatch(operationActions.getClientCurrentOperations(userdata.token, userdata.id))
         .then((response) => {
             console.log(response)
@@ -84,7 +86,7 @@ function Schedule(props) {
             // setProcedureTypes(ptypes)
             // setGroupedProcedures(operationActions.getGroupedProceduresBasedOnType(ptypes,response))
         },
-            error => console.error(error)
+            error => console.log(error)
         )
     }, [])
     useEffect(()=> {

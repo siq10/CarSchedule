@@ -59,7 +59,7 @@ function Layout(props) {
                 <AccountCircleTwoToneIcon className="profileicon" fontSize="large"></AccountCircleTwoToneIcon>
               </ListItemIcon>
               <ListItemText primary={auth.loggedIn?auth.user.username
-                :(user_ls?user_ls.username:"Guest")} />
+                :(user_ls.username?user_ls.username:"Guest")} />
             </ListItem>
             </List>
             {/* <div className="item profile">

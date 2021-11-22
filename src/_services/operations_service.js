@@ -17,22 +17,44 @@ function getCurrentOps(token,id) {
     return fetch(`${Config.apiUrl}:${Config.apiPort}/users/${id}/procedures`, requestOptions)
         .then(handleResponse)
         .then(payload => {
-            console.log(payload)
+            // console.log(payload)
             return payload
         })
 }
 
 function getHistoryOps(token) {
-    
+
 }
 
 
-function cancelOp(token) {
-    
+function cancelOp(token, userId, procedureId) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json',
+                   'Authorization': 'Bearer ' + token },
+    }
+    return fetch(`${Config.apiUrl}:${Config.apiPort}/users/${userId}/procedures/${procedureId}`, requestOptions)
+        .then(handleResponse)
+        .then(result => {
+            console.log(result)
+            return result
+        })
 }
 
-function updateOp(token) {
-    
+function updateOp(token, userId, operationData) {
+    const { id, ...payload } = operationData
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json',
+                   'Authorization': 'Bearer ' + token },
+        body: JSON.stringify( payload )
+    }
+    return fetch(`${Config.apiUrl}:${Config.apiPort}/users/${userId}/procedures/${id}`, requestOptions)
+        .then(handleResponse)
+        .then(payload => {
+            // console.log(payload)
+            return payload
+        })
 }
 
 function getOperationForUser(token,userId,opId) {
@@ -44,7 +66,7 @@ function getOperationForUser(token,userId,opId) {
     return fetch(`${Config.apiUrl}:${Config.apiPort}/users/${userId}/procedures/${opId}`, requestOptions)
         .then(handleResponse)
         .then(payload => {
-            console.log(payload)
+            // console.log(payload)
             return payload
         })
 }

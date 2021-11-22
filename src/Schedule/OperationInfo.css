@@ -1,0 +1,24 @@
+.infoTitle
+{
+
+}
+.summaryList
+{
+    padding-left:30px;
+    opacity: 0.6;
+}
+.infoAlert
+{
+    margin-top:auto;
+}
+
+.infoAlert .MuiAlert-icon
+{
+    align-items: center;
+}
+
+.infoAlert .MuiAlert-icon svg
+{
+    transform:scale(1.5);
+
+}

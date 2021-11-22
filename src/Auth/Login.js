@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { userActions } from '../_actions/user_actions';
+import { alertActions } from "../_actions/alert_actions";
 
 function Login() {
     const location = useLocation();
@@ -30,6 +31,12 @@ function Login() {
     // reset login status
     useEffect(() => { 
       dispatch(userActions.logout()); 
+      if(location.state && location.state.alert)
+      {
+        console.log(location.state.alert)
+        dispatch(alertActions[location.state.alert.type](location.state.alert.message)); 
+        
+      }
     }, []);
 
     return (
@@ -39,7 +46,7 @@ function Login() {
             <Form
             onSubmit={onSubmit}
             validateOnBlur={true}
-            validate={validate}
+            validate={(v) =>validate}
             render={({ handleSubmit,submitting  }) => (
               <form onSubmit={handleSubmit}>
                 <Field

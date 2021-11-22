@@ -8,8 +8,80 @@ export const operationActions = {
     getOperationDetails,
     getProcedureTypesFromData,
     getGroupedProceduresBasedOnType,
+    updateOperation,
+    deleteOperation
 };
-
+function updateOperation(operationData)
+{
+    console.log(operationData)
+    return dispatch => {
+        let user = userService.getcurrentuser()
+        if(user)
+        {
+            dispatch(request())
+            return new Promise((resolve, reject) => {
+                operationService.updateOp(user.token,user.id,operationData)
+                .then(
+                    status => {
+                        console.log(status)
+                        dispatch(success(status))
+                        return resolve(status)
+                    },
+                    error => {
+                        dispatch(failure(error.toString()))
+                        dispatch(alertActions.error(error.toString(), true))
+                        return reject(error)
+                    }
+                )
+            });
+        }
+        else
+        {
+            let errmsg = "User not authenticated!"
+            dispatch(failure(errmsg))
+            dispatch(alertActions.error(errmsg, true))
+            return Promise.reject(errmsg)
+        }
+    }
+    function request() { return { type: operationConstants.UPDATE_CLIENT_OP } }
+    function success(status) { return { type: operationConstants.UPDATE_CLIENT_OP, status } }
+    function failure(error) { return { type: operationConstants.UPDATE_CLIENT_OP, error } }
+}
+function deleteOperation(operationId)
+{
+    return dispatch => {
+        let user = userService.getcurrentuser()
+        if(user)
+        {
+            dispatch(request())
+            return new Promise((resolve, reject) => {
+                operationService.cancelOp(user.token,user.id,operationId)
+                .then(
+                    status => {
+                        console.log(status)
+                        dispatch(success(status))
+                        return resolve(status)
+                    },
+                    error => {
+                        dispatch(failure(error.toString()))
+                        dispatch(alertActions.error(error.toString(), true))
+                        return reject(error)
+                    }
+                )
+            });
+        }
+        else
+        {
+            let errmsg = "User not authenticated!"
+            dispatch(failure(errmsg))
+            dispatch(alertActions.error(errmsg, true))
+            return Promise.reject(errmsg)
+        }
+    }
+    function request() { return { type: operationConstants.DELETE_CLIENT_OP } }
+    function success(status) { return { type: operationConstants.UPDATE_CLIENT_OP, status } }
+    function failure(error) { return { type: operationConstants.UPDATE_CLIENT_OP, error } }
+}
 function getClientCurrentOperations() {
     return dispatch => {
         let user = userService.getcurrentuser()
@@ -29,7 +101,7 @@ function getClientCurrentOperations() {
                     },
                     error => {
                         dispatch(failure(error.toString()))
-                        dispatch(alertActions.error(error.toString()))
+                        dispatch(alertActions.error(error.toString(), true))
                         return reject(error)
                     }
                 )
@@ -39,7 +111,7 @@ function getClientCurrentOperations() {
         {
             let errmsg = "User not authenticated!"
             dispatch(failure(errmsg))
-            dispatch(alertActions.error(errmsg))
+            dispatch(alertActions.error(errmsg, true))
             return Promise.reject(errmsg)
         }
     }
@@ -57,6 +129,13 @@ function getOperationDetails(opId) {
                 operationService.getOperationForUser(user.token,user.id, opId)
                 .then(
                     operation => {
+                        operation.start_date = new Date(operation.start_date)
+                        // operation.start_date = `${monthnames[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`
+                        if(operation.end_date)
+                        {
+                            operation.end_date = new Date(operation.end_date)
+                            // operation.end_date = `${monthnames[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`
+                        }
                         return resolve(operation)
                     },
                     error => {

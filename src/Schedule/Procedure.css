@@ -1,0 +1,39 @@
+.formEditBtn
+{
+    background-color:transparent;
+}
+
+.form_p
+{
+    margin: 8px; 
+    width:100%;
+}
+
+.startDateCalendarBtn
+{
+    position:absolute;
+    right: 0;
+    top:0;
+}
+
+.datelabel .MuiInputLabel-animated
+{
+    transition-duration: 0s;
+}
+
+.procedure_form_container
+{
+    /* padding:0 4px!important; */
+
+}
+
+.procedure_form_container h2
+{
+    margin-bottom:0
+    
+}
+
+.MuiInputAdornment-positionEnd
+{
+    display:none
+}

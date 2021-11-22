@@ -20,7 +20,15 @@ function getcurrentuser()
     if(user.token)
     return user
     else
-    return JSON.parse(localStorage.getItem('user'));
+    {
+        let ls_user = JSON.parse(localStorage.getItem('user'));
+        if(ls_user)
+        {
+            return ls_user
+        }
+        else
+        return {}
+    }
 }
 
 function login(username, password) {
