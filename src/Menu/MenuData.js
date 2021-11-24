@@ -25,16 +25,16 @@ export const MenuData = [
     {
         title: 'History',
         path: '/history',
-        icon: <SchoolIcon className="navitems"></SchoolIcon>
+        icon: <HistoryIcon className="navitems"></HistoryIcon>
     },
     {
         title: 'Tutorials',
         path: '/tutorials',
-        icon: <RoomIcon className="navitems"></RoomIcon>
+        icon: <SchoolIcon className="navitems"></SchoolIcon>
     },
     {
         title: 'Contact',
         path: '/contact',
-        icon: <HistoryIcon className="navitems"></HistoryIcon>
+        icon: <RoomIcon className="navitems"></RoomIcon>
     },
 ]

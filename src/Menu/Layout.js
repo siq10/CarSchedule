@@ -14,7 +14,8 @@ import Button from '@mui/material/Button';
 import { Icon } from '@mui/material';
 
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import { ListItemButton } from '@mui/material';
+
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
@@ -54,13 +55,13 @@ function Layout(props) {
             onKeyDown={toggleDrawer(false)}
           >
             <List>
-            <ListItem button>
+            <ListItemButton component={Link} to={'/profile'} onClick={() => props.setTitle('Profile')}>
               <ListItemIcon >
                 <AccountCircleTwoToneIcon className="profileicon" fontSize="large"></AccountCircleTwoToneIcon>
               </ListItemIcon>
               <ListItemText primary={auth.loggedIn?auth.user.username
                 :(user_ls.username?user_ls.username:"Guest")} />
-            </ListItem>
+            </ListItemButton>
             </List>
             {/* <div className="item profile">
               <img src="/profile30.jpg" alt="Profile pic"></img>

@@ -11,6 +11,8 @@ import { userActions } from './_actions/user_actions';
 import { MenuData } from './Menu/MenuData'
 import { routeTitles } from './_constants/route_constants'
 
+import Profile from './Profile/Profile';
+
 import { Container } from '@mui/material';
 
 import AppBar from "@mui/material/AppBar";
@@ -129,9 +131,9 @@ function App() {
       <Switch>
             <Route path='/' exact component={Home} />
             <PrivateRoute path='/schedule/:procId?' component={Schedule} />
+            <PrivateRoute path='/profile' component={Profile} />
             <Route exact path='/tutorials' component={Tutorials} />
             <Route path='/tutorials/*' component={TutorialPresentation} />
-
 
             <Route path='/register' component={Register}/>
             <Route path='/contact' component={Contact} />
